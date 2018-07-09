@@ -1,0 +1,55 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{PS_inclusion-exclusion_surjective_short}
+  \pcomment{Just the beginning of PS_inclusion-exclusion_surjective}
+  \pcomment{zabel, s18}
+\end{pcomments}
+
+\pkeywords{
+  inclusion_exclusion
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+
+  \bparts
+
+  \ppart\label{ranged-sequences} Let $S = \{1,2,3,4\}^n$ be the set of length-$n$ sequences $(a_1,\ldots,a_n)$ where each $a_i$ is chosen from $\{1,2,3,4\}$. What is $|S|$?
+  
+  \begin{solution}
+    Each entry has $4$ possibilities, so there are $4^n$ choices.
+  \end{solution}
+  
+  \ppart\label{inc-exc-4} How many of the sequences in $S$ contain each of $1$, $2$, $3$, and $4$ at least once? Use Inclusion-Exclusion to find and prove your answer.
+
+  \hint For $1\le i\le 4$, define $S_i\subset S$ as the subset of sequences that do \emph{not} contain $i$. What is $\card{S_1}$? How about $\card{S_1\cap S_2}$?
+
+  \begin{solution}
+    The set $S_1$ is simply the set of length-$n$ sequences of $2$s, $3$s, and $4$s, i.e., $S_1 = \{2,3,4\}^n$, so $\card{S_1} = 3^n$ for the same reason as in part~\eqref{ranged-sequences}. Likewise $\card{S_2} = \card{S_3} = 3^n$. Similarly, the intersection $S_1\cap S_2$ is the set of sequences of $3$s and $4$s, so $\card{S_1\cap S_2} = 2^n$, and the same holds for the other pairwise intersections $S_i\cap S_j$ ($i\ne j$). The set $S_1\cap S_2\cap S_3$ has just one sequence, $(4,4,\ldots,4)$, and similarly for the other three-way intersections. Finally, $S_1\cap S_2\cap S_3\cap S_4$ is empty. So by Inclusion Exclusion, we can compute
+    \begin{align*}
+      \card{S_1\cup S_2\cup S_3\cup S_4}
+      & = \card{S_1} + \card{S_2} + \card{S_3} + \card{S_4}\\
+      &\quad - \card{S_1\cap S_2} - \cdots - \card{S_3\cap S_4}\qquad\text{(6 terms)}\\
+      &\quad + \card{S_1\cap S_2\cap S_3} + \cdots + \card{S_2\cap S_3\cap S_4}\qquad\text{(4 terms)}\\
+      &\quad - \card{S_1\cap S_2\cap S_3\cap S_4}\\
+      &= 4\cdot 3^n - 6\cdot 2^n + 4\cdot 1 - 0.
+    \end{align*}
+    The desired answer is thus
+    \begin{equation*}
+      \card{S - (S_1\cup S_2\cup S_3\cup S_4)} = 4^n - 4\cdot 3^n + 6\cdot 2^n - 4.
+    \end{equation*}
+  \end{solution}
+  
+  \eparts
+  
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem ends here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\endinput

@@ -1,0 +1,115 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{PS_inclusion-exclusion_surjective}
+  \pcomment{zabel, s18}
+\end{pcomments}
+
+\pkeywords{
+  inclusion_exclusion
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+
+  \bparts
+
+  \ppart\label{ranged-sequences} Let $S$ be the set of \emph{total
+    functions} from $\Zintvcc{1}{n}$ to $\{1,2,3,4\}$. What is
+  $\card{S}$?
+
+  \begin{solution}
+    Each of $1,2,\ldots,n$ can be mapped to one of $4$ possibilities,
+    so there are $4^n$ choices.
+  \end{solution}
+  
+  \ppart\label{inc-exc-4} How many of the \emph{total functions} in
+  $S$ are also \emph{surjective}? Use Inclusion-Exclusion to find and
+  prove your answer.
+
+  \hint For $1\le i\le 4$, define $S_i\subset S$ as the subset of
+  functions that do \emph{not} have $i$ in their range. What is
+  $\card{S_1}$? How about $\card{S_1\cap S_2}$?
+
+  \begin{solution}
+    The set $S_1$ is simply the set of total functions from
+    $\Zintvcc{1}{n}$ to $\{2,3,4\}$, so $\card{S_1} = 3^n$ for the
+    same reason as in part~\eqref{ranged-sequences}. Likewise
+    $\card{S_2} = \card{S_3} = 3^n$. Similarly, the intersection
+    $S_1\cap S_2$ is the set of total functions from $\Zintvcc{1}{n}$
+    to $\{3,4\}$ so $\card{S_1\cap S_2} = 2^n$, and the same holds for
+    the other pairwise intersections $S_i\cap S_j$ ($i\ne j$). The set
+    $S_1\cap S_2\cap S_3$ has just one function---the constant
+    function mapping every input to $4$---and similarly for the other
+    three-way intersections. Finally, $S_1\cap S_2\cap S_3\cap S_4$ is
+    empty. So by Inclusion Exclusion, we can compute
+    \begin{align*}
+      \card{S_1\cup S_2\cup S_3\cup S_4}
+      & = \card{S_1} + \card{S_2} + \card{S_3} + \card{S_4}\\
+      &\quad - \card{S_1\cap S_2} - \cdots - \card{S_3\cap S_4}\qquad\text{(6 terms)}\\
+      &\quad + \card{S_1\cap S_2\cap S_3} + \cdots + \card{S_2\cap S_3\cap S_4}\qquad\text{(4 terms)}\\
+      &\quad - \card{S_1\cap S_2\cap S_3\cap S_4}\\
+      &= 4\cdot 3^n - 6\cdot 2^n + 4\cdot 1 - 0.
+    \end{align*}
+    The desired answer is thus
+    \begin{equation*}
+      \card{S - (S_1\cup S_2\cup S_3\cup S_4)} = 4^n - 4\cdot 3^n + 6\cdot 2^n - 4.
+    \end{equation*}
+  \end{solution}
+  
+  \ppart\label{inc-exc-m} The preceding Inclusion-Exclusion argument
+  may be generalized to prove that the number of surjective total
+  functions from $\Zintvcc{1}{n}$ to $\Zintvcc{1}{m}$ is
+  \begin{equation*}
+    \sum_{i=0}^{m} (-1)^i\binom{m}{i}(m-i)^n = m^n -
+    \binom{m}{1}(m-1)^n + \binom{m}{2}(m-2)^n - \cdots +
+    (-1)^{m-1}\binom{m}{m-1}1^n.
+  \end{equation*}
+  Briefly, in just a sentence or two, explain what you would need to
+  modify from your writeup of part~\eqref{inc-exc-4} to prove this
+  more general version. You need not write a full proof here.
+
+  \ppart In closed form, how many surjective total functions are there
+  from $\Zintvcc{1}{n}$ to $\Zintvcc{1}{n}$? How about from
+  $\Zintvcc{1}{n-1}$ to $\Zintvcc{1}{n}$? Compute these answers
+  directly, \emph{without} the help of part~\eqref{inc-exc-m}.
+  
+  \begin{solution}
+    A surjective function from $\Zintvcc{1}{n}$ to $\Zintvcc{1}{n}$
+    must be a bijection, and hence a permutation, so there are $n!$ of
+    these. The set $\Zintvcc{1}{n-1}$ has smaller cardinality than
+    $\Zintvcc{1}{n}$, so there are $0$ surjective functions from the
+    smaller set to the larger set.
+  \end{solution}
+  
+  \ppart From the previous two parts, conclude that
+  \begin{equation*}
+    n^n - \binom{n}{1}(n-1)^n + \binom{n}{2}(n-2)^n - \cdots +
+    (-1)^{n-1}\binom{n}{n-1}1^n = n!
+  \end{equation*}
+  and
+  \begin{equation*}
+    n^{n-1} - \binom{n}{1}(n-1)^{n-1} + \binom{n}{2}(n-2)^{n-1} -
+    \cdots + (-1)^{n-1}\binom{n}{n-1}1^{n-1} = 0.
+  \end{equation*}
+  
+  \begin{solution}
+    In the first equation, both sides are counting the number of
+    surjective total functions from $\Zintvcc{1}{n}$ to itself, so
+    both must have the same value. Likewise, both sides of the second
+    equation are counting the number of surjective total functions
+    from $\Zintvcc{1}{n-1}$ to $\Zintvcc{1}{n}$.
+  \end{solution}
+  
+  \eparts
+  
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem ends here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\endinput

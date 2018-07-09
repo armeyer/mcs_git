@@ -1,0 +1,49 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{FP_sequence_gcd}
+  \pcomment{zabel, s18}
+
+  \pcomment{This has been superceded by FP_polynomial_modk}
+\end{pcomments}
+
+\pkeywords{
+  sequence
+  gcd
+  lcm
+  number_theory
+  modular
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+Define the sequence $(a_0,a_1,a_2,\ldots)$ by $a_n\eqdef
+(n^2-4)(n^2-9)$.  What is the largest integer that divides every
+term of this sequence?  Explain.
+
+\begin{solution}
+Any integer that divides every term in the sequence must divide $a_0 =
+36$ and $a_1 = 24$ and therefore must divide their difference, $12$.
+We'll show that $12$ divides every term in the sequence and is thus
+the desired answer.
+
+To see that every term is divisible by $3$, observe that
+$(n^2-4)(n^2-9)\equiv (m^2-4)(m^2-9)\pmod 3$ whenever $n\equiv m\pmod
+3$, so in particular, $a_n\equiv a_{\rem{n}{3}}\pmod 3$, meaning every
+$a_n$ is congruent to $a_0 = 36$, $a_1 = 24$, or $a_2 = 0$ modulo
+$3$.  These three values are congruent to $0\bmod 3$, so each $a_n$ is
+also congruent to $0\bmod 3$.
+
+Similarly, every $a_n$ is congruent to one of $a_0$, $a_1$, $a_2$, or
+$a_3 = 0$ modulo $4$ and is thus divisible by $4$.
+
+Because $3 \divides a_n$ and $4\divides a_n$, it follows that
+$\lcm(3,4) = 12$ divides $a_n$, as required.
+\end{solution}
+  
+\end{problem}
+
+\endinput

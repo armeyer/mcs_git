@@ -1,0 +1,78 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{TP_Quantifiers2}
+  \pcomment{same as TP_Quantifiers plus last part, zabel, s18}
+\end{pcomments}
+
+\pkeywords{
+quantifier
+negation
+universe
+equivalence
+logic
+}
+
+\begin{problem}
+Let $Q(x, y)$ be the statement 
+\begin{center}
+    ``$x$ has been a contestant on television show $y$.''  
+\end{center}
+The domain of discourse for $x$ is the set of all students at your
+school and for $y$ is the set of all quiz shows that have ever been on
+television.
+
+Indicate which of the following expressions are logically equivalent to
+the sentence:
+
+\begin{center}
+``No student at your school has ever been a contestant on a television
+  quiz show.''
+\end{center}
+
+\bparts
+
+\ppart
+$\forall x\, \forall y. \; \QNOT (Q(x, y))$
+
+\begin{solution}
+Yes.
+\end{solution}
+
+\ppart
+
+$\exists x\, \exists y. \; \QNOT (Q(x, y))$
+
+\begin{solution}
+No.  This is equivalent to saying ``There is a student who has never
+been a contestant on at least one television quiz show.''
+\end{solution}
+
+\ppart
+$\QNOT (\forall x\, \forall y. \; Q(x, y))$
+
+\begin{solution}
+No.  This is equivalent to saying ``Not every student has been a
+contestant on every television quiz show.''
+\end{solution}
+
+\ppart $\QNOT (\exists x\, \exists y . \; Q(x, y)) $
+
+\begin{solution}
+Yes.
+\end{solution}
+
+\ppart Write your own logical formula that is equivalent to the
+statement ``No student at your school has been a contestant on
+\emph{two or more} television quiz shows.''  You may use variables
+$y_1, y_2$ that both range over the domain of television quiz shows.
+
+\begin{solution}
+  $\QNOT(\exists x\, \exists y_1\, \exists y_2. \; y_1\ne y_2 \QAND Q(x,y_1) \QAND Q(x, y_2))$.
+\end{solution}
+
+\eparts
+
+\end{problem}
+
+\endinput

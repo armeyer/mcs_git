@@ -1,0 +1,55 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{CP_combinatorial_proof_3}
+  \pcomment{suggested by Darij Grinberg 5/14/18}
+\end{pcomments}
+
+\pkeywords{
+  combinatorial_proof
+  binomial_coefficient
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+Give a combinatorial proof for this identity:
+\[
+\sum_{r=0}^n \binom{n}{r} \binom{m}{k-r} = \binom{n+m}{k}
+\]
+
+\begin{staffnotes}
+\hint Theorem~\bref{th:comb-ex}
+\end{staffnotes}
+
+\begin{solution}
+\begin{proof}
+The proof is essentially the same as for Theorem~\bref{th:comb-ex}:
+
+Let $S$ be all $k$-card hands that can be dealt from a deck containing
+$n$ different red cards and $m$ different black cards.  So we know
+\[
+\card{S} = \binom{n+m}{k}.
+\]
+
+From another perspective, the number of $k$-card hands with exactly $r$ red
+cards is
+\[
+\binom{n}{r} \binom{m}{k - r}
+\]
+because there are $\binom{n}{r}$ ways to choose the $r$ red cards and
+$\binom{m}{k - r}$ ways to choose the remaining $k - r$ black cards.  Since the
+number of red cards can be anywhere from 0 to $n$, the total number of
+$n$-card hands is:
+\[
+    \card{S} = \sum_{r=0}^n \binom{n}{r} \binom{m}{k-r}.
+\]
+Equating these two expressions for $\card{S}$ proves the theorem.
+\end{proof}
+\end{solution}
+
+\end{problem}
+
+\endinput

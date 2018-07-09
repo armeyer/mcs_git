@@ -1,0 +1,200 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{PS_Euler_formula_inclusion-exclusion}
+  \pcomment{cut from text and completely revised -- ARM 5/14/18}
+\end{pcomments}
+
+\pkeywords{
+  Eulers_theorem
+  Euler_function
+  phi_function
+  inclusion-exclusion
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\subsection{Computing Euler's Function}\label{computephi_sec}
+
+\begin{problem}
+Inclusion-Exclusion provides an alternative derivation of the formula
+for Euler's function \inbook{given in Corollary~\bref{cor:phi}}:
+\begin{equation}\label{inex-phi}
+\phi(n) = n \prod_{i=1}^m \paren{1-\frac{1}{p_i}},
+\end{equation}
+where $p_1,p_2,\dots,p_m$ are the distinct prime factors of $n$.
+
+The proof hinges on an algebraic formula about a product of simple sums:
+\begin{equation}\label{1+xprod}
+\prod_{i=1}^n \paren{1+x_i} = \sum_{I \subseteq \set{1,\dots,n}} \prod_{j \in I}x_j.
+\end{equation}
+
+\bparts
+
+\ppart Verify~\eqref{1+xprod} in the case $n=3$.
+
+\begin{solution}
+We ``multiply out''
+\[
+(1+x_1)(1+x_2)(1+x_3) = 1 + x_1 + x_2 + x_3 + x_1x_2 + x_1x_3 + x_2x_3 + x_1x_2x_3,
+\]
+where the eight terms on the right hand side correspond to the eight
+subsets of~$\set{1,2,3}$.
+\end{solution}
+
+\ppart Now briefly explain why~\eqref{1+xprod} is true.
+
+\begin{solution}
+To multiply out the product of $n$ different $(1+x_i)$'s on the left
+hand side of~\eqref{1+xprod}, we choose either 1 or the $x$-variable
+from each terms and multiply the choices together to a product of
+$x_i$'s.  We do this in all possible ways.  That is for every subset
+$I \subseteq \Zintv{1}{n}$, multiply the $x_i$'s for $i \in I$ to get
+the monomial
+\[
+\prod_{i \in I} x_i.
+\]
+Then add up all the $2^n$ such monomials, which gives the right-hand side of
+equation~\eqref{1+xprod}.
+\end{solution}
+\eparts
+\medskip
+
+To prove~\eqref{inex-phi}, let~$S$ be the set of integers in
+$\Zintvco{0}{n}$ that are \emph{not} relatively prime to $n$, so
+$\phi(n) = n - \card{S}$.
+
+\bparts
+
+\ppart  Let $C_a$~be the set of integers in $\Zintvco{0}{n}$ that are
+divisible by $a$:
+\[
+C_a \eqdef \set{k \in \Zintvco{0}{n} \suchthat\quad a\text{ is a factor of }k}.
+\]
+Explain why
+\begin{equation}\label{Slgucpi}
+S = \lgunion_{i=1}^m C_{p_i}.
+\end{equation}
+
+\begin{solution}
+The integers in $S$ are precisely the integers in $\Zintvco{0}{n}$
+that are divisible by at least one of the $p_i$'s.
+\end{solution}
+\eparts
+
+\medskip
+
+We'll be able to find the size of the union~\eqref{Slgucpi} using
+Inclusion-Exclusion because the intersections of the $C_{p_i}$'s are
+easy to count.
+
+\bparts
+
+\ppart\label{pqrccc} Suppose $p,q,r$ are distinct prime divisors of
+$n$.  Prove that
+\[
+\card{C_p \intersect C_q \intersect C_r} = \frac{n}{pqr}.
+\]
+
+\begin{solution}
+$C_p \intersect C_q \intersect C_r$ is the set of integers in
+  $\Zintvco{0}{n}$ that are divisible by each of $p$, $q$ and $r$.
+  But since $p,q,r$ are distinct primes, being divisible by each of
+  them is the same as being divisible by their product.  Now if $k$ is
+  a positive divisor of $n$, then there are exactly $n/k$ multiples of
+  $k$ in $\Zintvco{0}{n}$.  So exactly $n/pqr$ of the integers in
+  $\Zintvco{0}{n}$ are divisible by all three primes $p$, $q$, $r$.
+\end{solution}
+\eparts
+
+\medskip
+
+Of course the solution to part~\eqref{pqrccc} extends to arbitrary
+intersections of $C_p$'s.  Accordingly, we now assume
+\begin{equation}\label{cardlgincpj}
+  \Card{\lgintersect_{j \in I} C_{p_j}} = \frac{n}{\prod_{j \in I} {p_j}},
+\end{equation}
+for any nonempty set $I \subseteq \Zintv{1}{m}$.  In fact,
+equation~\eqref{cardlgincpj} even holds for $I = \emptyset$ since, by
+convention, an empty intersection of subsets of $\Zintvco{0}{n}$
+equals $\Zintvco{0}{n}$, and an empty product equals 1.
+
+\bparts
+
+\ppart\label{justifyCp} Justify each of the steps in the following
+derivation of a formula for the size of $S$.
+
+\begin{align*}
+\card{S}
+  & = \Card{\lgunion_{i=1}^m C_{p_i}}\\
+  & = \sum_{\emptyset \neq I \subseteq \Zintv{1}{m}} (-1)^{\card{I}+1} \Card{\lgintersect_{i \in I} C_{p_i}}\\
+  & = \left[\sum_{I \subseteq \Zintv{1}{m}} (-1)^{\card{I}+1} \Card{\lgintersect_{i \in I} C_{p_i}}\right]+n\\
+  & = n - \sum_{I \subseteq \Zintv{1}{m}} (-1)^{\card{I}} \Card{\lgintersect_{i \in I} C_{p_i}}\\
+  & = n - \sum_{I \subseteq \Zintv{1}{m}} (-1)^{\card{I}} \frac{n}{\prod_{j \in I} {p_j}}\\
+  & = n - n\sum_{I \subseteq \Zintv{1}{m}} \frac{1}{\prod_{j \in I} (-p_j)}\\
+  & = n - n\sum_{I \subseteq \Zintv{1}{m}} \prod_{j \in I} \paren{-\frac{1}{p_j}}\\
+  & = n - n \prod_{i=1}^m \paren{1-\frac{1}{p_i}},
+\end{align*}
+
+\begin{solution}
+\begin{align*}
+\card{S}
+  & = \Card{\lgunion_{i=1}^m C_{p_i}}
+      & \text{(by~\eqref{Slgucpi})}\\
+  & = \sum_{\emptyset \neq I \subseteq \Zintv{1}{m}} (-1)^{\card{I}+1} \Card{\lgintersect_{i \in I} C_{p_i}}
+      &  \text{(by Inclusion-Exclusion~\bref{incexII})}\\
+  & = \left[\sum_{I \subseteq \Zintv{1}{m}} (-1)^{\card{I}+1} \Card{\lgintersect_{i \in I} C_{p_i}}\right]+n
+      & (\text{an empty intersection equals $\Zintvco{0}{n}$})\\
+  & = n - \sum_{I \subseteq \Zintv{1}{m}} (-1)^{\card{I}} \Card{\lgintersect_{i \in I} C_{p_i}}\\
+      & (\text{factor out $-1$})\\
+  & = n - \sum_{I \subseteq \Zintv{1}{m}} (-1)^{\card{I}} \frac{n}{\prod_{j \in I} {p_j}}\\
+      & \text{(by~\eqref{cardlgincpj})}\\
+  & = n - n \sum_{I \subseteq \Zintv{1}{m}} \frac{1}{\prod_{j \in I} (-p_j)}
+      & (\text{factor out $n$, factor in $-1$})\\
+  & = n - n \sum_{I \subseteq \Zintv{1}{m}} \prod_{j \in I} \paren{-\frac{1}{p_j}}\\
+  & = n - n \prod_{i=1}^m \paren{1-\frac{1}{p_i}}
+      & \text{(by~\eqref{1+xprod} with $x_i\eqdef -(1/p_i)$)}
+\end{align*}
+\end{solution}
+
+\ppart Use part~\eqref{justifyCp} to complete the proof of~\eqref{inex-phi}.
+
+\begin{solution}
+\[
+\phi(n) = n - \card{S} = n -\paren{n - n \prod_{i=1}^m \paren{1-\frac{1}{p_i}}} = 
+n \prod_{i=1}^m \paren{1-\frac{1}{p_i}}.
+\]
+\end{solution}
+
+\iffalse
+\begin{align*}
+\card{S}
+  & = \Card{\lgunion_{i=1}^m C_{p_i}}\\
+  & = \sum_{i=1}^m \Card{C_{p_i}} - \sum_{1\leq i < j \leq m} \Card{C_{p_i} \intersect C_{p_j}}\\
+  &\qquad  + \sum_{1\leq i < j < k \leq m} \Card{C_{p_i} \intersect C_{p_j} \intersect C_{p_k}} -
+       \cdots + (-1)^{m-1} \Card{\lgintersect_{i=1}^m C_{p_i}}\\
+  & = \sum_{i=1}^m \frac{n}{p_i} -
+      \sum_{1\leq i < j \leq m} \frac{n}{p_ip_j}\\
+\card{  &\qquad  + \sum_{1\leq i < j < k \leq m} \frac{n}{p_ip_jp_k} -
+       \cdots + (-1)^{m-1} \frac{n}{p_1p_2\cdots p_n}\\
+  & = n\paren{\sum_{i=1}^m \frac{1}{p_i} -
+      \sum_{1\leq i < j \leq m} \frac{1}{p_ip_j}
+       + \sum_{1\leq i < j < k \leq m} \frac{1}{p_ip_jp_k} - \cdots
+        + (-1)^{m-1} \frac{1}{p_1p_2\cdots p_n}}
+\end{align*}
+But $\phi(n)=n-\card{S}$ by definition, so
+\begin{align}
+  \phi(n) & = n\paren{1 - \sum_{i=1}^m \frac{1}{p_i} +  \sum_{1\leq i < j \leq m} \frac{1}{p_ip_j}
+    - \sum_{1\leq i < j < k \leq m} \frac{1}{p_ip_jp_k} + \cdots
+    + (-1)^m\frac{1}{p_1p_2\cdots p_n}}\notag\\
+          &  = n \prod_{i=1}^m \paren{1 - \frac{1}{p_i}}.\label{inex-phi}
+\end{align}
+\fi
+
+\eparts
+
+\end{problem}
+
+\endinput

@@ -1,0 +1,79 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{TP_which_are_partial_orders}
+  \pcomment{from: S02.cp3f}
+  \pcomment{S10: added by estick}
+  \pcomment{5/19/18 needs update re weak/strict partial orders -- ARM}
+\end{pcomments}
+
+\pkeywords{
+  partial orders
+  transitive
+  antisymmetric
+  reflexive
+  total_order
+  linear
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+
+In each of the following examples, $R$ is a binary relation on a set
+$A$.  Indicate which examples are weak partial orders or strong partial orders, and when they are, indicate whether they are linear. \textbf{Explain} your answers.
+
+\begin{problemparts}
+
+\problempart $A=\set{a,b,c},\  R=\set{(a,a),(b,a),(b,b),(b,c),(c,c)}.$
+
+\begin{solution}
+WPO, not Linear. $R$ is reflexive, transitive, and antisymmetric.  Therefore, $R$ is
+a weak partial order on $A$.  However, it is not a linear order on $A$ since
+neither the pair $(a,c)$ nor $(c,a)$ is in $R$.
+\end{solution}
+
+\examspace[1.5in]
+\problempart $A=$ the set of all English words,
+\[
+R = \set{(x,y) \in A \times A \suchthat x \text{ comes before $y$ alphabetically}}.
+\]
+
+\begin{solution}
+  SPO, Linear.  $R$ is transitive and asymmetric, so it is a strong partial order. For any pair of distinct words, one of them comes before the other alphabetically, so $R$ is linear.
+\end{solution}
+
+\examspace[1.5in]
+
+\problempart $A=\reals,\  R= \set{(x,y) \in \reals \times \reals \suchthat
+  \abs{x} < \abs{y} \QOR x=y}$.
+
+\begin{solution}
+WPO, not Linear. $R$ is reflexive, transitive, and antisymmetric.  Therefore, $R$ is a
+  weak partial order on $A$.  However, $R$ is not a linear order on $A$.
+  For example, if $x = 5, y = -5$, then none of the following holds:
+  $x = y, \abs{x} < \abs{y}, \abs{y} < \abs{x}$.
+\end{solution}
+
+\examspace[1.5in]
+
+\problempart $A=\reals,\ R=\set{(x,y) \in \reals \times \reals \suchthat
+  \abs{x} \leq \abs{y}}$.
+
+\begin{solution}
+  Neither. $R$ is neither asymmetric nor antisymmetric, so it is neither a WPO nor a SPO. As a counterexample, $\abs{-3} \leq \abs{3}, \abs{3} \leq \abs{-3}$,
+  but $3 \neq -3$.
+\end{solution}
+
+\end{problemparts}
+
+\end{problem}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem ends here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\endinput

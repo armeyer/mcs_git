@@ -1,0 +1,123 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{FP_asymptotics_short_answer}
+  \pcomment{zabel, Jerry Li, and Hongyu Yang for s18 mid4}
+  \pcomment{loosely based on PS_asymptotics_and_stirlings and CP_asymptotic_equality_properties} 
+\end{pcomments}
+
+\pkeywords{
+  asymptotics
+  stirling
+  little_oh
+  Theta
+  big_Oh
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}
+Include brief \textbf{explanations} with your answers to each of
+following questions.
+  
+\bparts
+
+\ppart Let $h(x) = (\log_2 x)^{3}\cdot(x+2)^{3}$.  Is $h(x) = O(x^3)$?
+Is $h(x) = O(x^{3.1})$?
+
+\begin{solution}
+\textbf{No}, $h(x)$ is \textbf{not} $O(x^3)$ because
+\[
+\lim_{x\to\infty} \frac{h(x)}{x^3}
+= \lim_{x\to\infty} (\log_2 x)^3 \cdot\frac{(x+2)^3}{x^3} = \infty
+\]
+because the first term tends toward $\infty$ and the second term tends
+toward $1$.  On the other hand,
+
+\textbf{Yes}, $h(x)$ \textbf{is} $O(x^{3.1})$, in fact is
+$o(x^{3.1})$, because
+\[
+\lim_{x\to\infty} \frac{h(x)}{x^{3.1}}
+= \lim_{x\to\infty} \frac{(\log_2 x)^3}{x^{0.1}} \cdot\lim_{x\to\infty}\frac{(x+2)^3}{x^3}
+= 0 \cdot 1 = 0.
+\]
+\end{solution}
+
+\examspace[1.5in]
+
+\ppart Is it true that $x \log_2 x \sim x \ln x$?  Is it true that
+$x\log_2 x = \Theta(x\ln x)$?
+
+\begin{solution}
+Theta $\Theta$: \textbf{Yes}.  Asymptotic equality $\sim$: \textbf{No}.
+
+We have $x\log_2 x = (x\ln x)/(\ln 2)$, so the functions $x\log_2 x$
+and $x\ln x$ have a constant ratio of $\ln 2 \ne 1$.  This means
+$x\log_2 x = \Theta(x\ln x)$ is true but that the functions are not
+asymptotically equivalent because their ratio in the limit is not
+equal to one.
+\end{solution}
+  
+  % \ppart Consider the sum
+  % \begin{equation*}
+  %   S(n) \eqdef \sum_{k=1}^n k^2\cdot 2^k.
+  % \end{equation*}
+  % Is $S(n) = O(2.01^n)$? Is $S(n) = O(2^n)$?  
+  % \hint You don't need to evaluate the sum.
+
+\examspace[1.5in]
+
+ppart If $f,g:\nngint^+\to\nngint^+$ and $f\sim g$, must $f^2$ and
+$g^2$ be asymptotically equal?
+
+\begin{solution}
+\textbf{Yes:}
+\[
+\lim_{n\to\infty} \frac{f(n)^2}{g(n)^2}
+= \lim_{n\to\infty} \frac{f(n)}{g(n)} \cdot \frac{f(n)}{g(n)}
+= \lim_{n\to\infty} \frac{f(n)}{g(n)} \cdot \lim_{n\to\infty} \frac{f(n)}{g(n)}
+= 1 \cdot 1 = 1.
+\]
+\end{solution}
+
+\examspace[1.5in]
+
+\ppart If $f,g:\nngint^+\to\nngint^+$ and $f\sim g$, must $2^f$ and
+$2^g$ be asymptotically equal?  \hint No.
+
+\begin{solution}
+\textbf{No}.  A simple counterexample is
+\begin{align*}
+  f(n) & \eqdef n+1\\ g(n) & \eqdef n.
+\end{align*}
+Then $f \sim g$ since $\lim (n+1)/n = 1$, but $2^f= 2^{n+1} = 2\cdot 2^n =
+2\cdot 2^g$ so
+\[
+\lim \frac{2^f}{2^g} = 2 \neq 1.
+\]
+
+There are lots of other examples, such as
+\[
+f(n) \eqdef n,\ g(n) \eqdef n + \log n.
+\]
+Then
+\[
+\frac{2^{f(n)}}{2^{g(n)}} = \frac{2^n}{2^{n + \log n}} = \frac{2^n}{2^n2^{\log n}} = \frac{1}{n},
+\]
+so
+\[
+\lim_{n\to\infty} \frac{2^{f(n)}}{2^{g(n)}} = \lim_{n\to\infty} \frac{1}{n} = 0 \neq 1
+\]
+which means in fact that, $2^f = o(2^g)$.
+\end{solution}
+ 
+\eparts
+
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem ends here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\endinput

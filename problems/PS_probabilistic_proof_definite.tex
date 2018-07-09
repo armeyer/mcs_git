@@ -1,0 +1,135 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{PS_probabilistic_proof_definite}
+  \pcomment{Specialization of PS_probabilistic_proof to a fixed $k$ value}
+  \pcomment{\textbf{Random Tournaments}}
+  \pcomment{from S01.tut12}
+  \pcomment{added to F02 repository by Tina Wang, S02}
+  \pcomment{edited by ARM 5/18/12}
+\end{pcomments}
+
+\pkeywords{
+  probability
+  probabilistic_method
+  Boole
+  Booles_inequality
+  union_bound
+  tournament
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+                                                                         
+\begin{problem}           
+The results of a round robin tournament in which every two people play
+each other and one of them wins can be modelled a \term{tournament
+  digraph}---a digraph with exactly one directed edge between each pair of
+distinct vertices. We'll draw a directed edge $\diredge{v}{w}$ if player $v$ beats player $w$, and otherwise we'll include directed edge $\diredge{w}{v}$.
+
+An $n$-player tournament is \emph{$k$-neutral} for some $k \in [0,n)$,
+  when, for every set of $k$ players, there is another player who
+  beats them all.  For example, being 1-neutral is the same as not
+  having a ``best'' player who beats everyone else.
+
+  This problem will prove the existence of an $n$-player tournament that is $10$-neutral, if $n$ is large enough. We will do
+  this by reformulating the question in terms of probabilities.  In
+  particular, for any fixed $n$, we assign probabilities to each
+  $n$-vertex tournament digraph by choosing a direction for the edge
+  between any two vertices, independently and with equal probability for
+  each edge.
+
+\begin{problemparts}
+
+\problempart\label{prbsn} For any set $S$ of $10$ players, let $B_S$ be
+the event that no contestant beats everyone in $S$.  Express
+$\prob{B_S}$ in terms of $n$.
+
+\examspace[1in]
+
+\begin{solution}
+The probability that a player outside $S$ beats everyone in $S$ is
+$(1/2)^{10}$.  So the probability such a player did not beat everyone in
+the group is $1-(1/2)^{10}$.  There are $n-10$ players outside of the
+group, so
+\[
+\pr{B_S} = \brac{1-(1/2)^{10}}^{n-10} \,.
+\]
+\end{solution}
+
+\problempart\label{qkalpha} Let $Q$ be the event that the
+tournament digraph is \emph{not} $10$-neutral.  Prove that
+\[
+\prob{Q} \leq \binom{n}{10} \alpha^{n-10},
+\]
+where $\alpha \eqdef 1 - (1/2)^{10}$.
+
+\hint Let $S$ range over the size-$10$ subsets of players, so
+\[
+Q = \lgunion_S B_S \, .
+\]
+Use Boole's inequality.
+
+\examspace[1.5in]
+
+\begin{solution}
+
+\begin{align*}
+\prob{Q} 
+ & =\prob{\lgunion_{S} B_S} & \text{(hint)}\\
+ & \leq \sum_{S} \prob{B_S} & \text{(Boole's Inequality)}\\
+ & = \card{\set{S \suchthat \card{S} = 10}}\cdot \prob{B_S}\\
+ & = \binom{n}{10} \alpha^{n-10} & \text{(part~\eqref{prbsn})}
+\end{align*}
+
+\end{solution}
+
+\ppart Conclude that if $n$ is large enough, then
+$\pr{Q} < 1$.
+
+\hint Show that the limit as $n$ approaches infinity is $0$. Why is this sufficient?
+
+\examspace[2.0in]
+
+\begin{solution}
+\begin{align}
+\pr{Q}
+   & \leq \binom{n}{10}\alpha^{n-10}
+       & \text{(by part~\eqref{qkalpha})}\nonumber\\
+   & = (1/\alpha)^{10} \binom{n}{10}\alpha^n\,.\label{prob-Q}
+\end{align}
+But this value approaches $0$ as $n$ approaches infinity. To see why, note that $0 < \alpha < 1$, so $1/\alpha >
+1$ and hence $\binom{n}{10} = \Theta(n^{10}) = o((1/\alpha)^n)$ by Corollary~\bref{xbax}.
+
+Because the value of~\eqref{prob-Q} approaches $0$ as $n\to\infty$, it must be less than $1$ when $n$ is large enough.
+\end{solution}
+
+\problempart Explain why the previous result implies that there is an $n$-player $10$-neutral tournament (for a large enough $n\in\nngint$).
+
+\examspace[1in]
+
+\begin{solution}
+Suppose $n$ is large enough that $\pr{Q} < 1$.  Then $\pr{\bar{Q}}
+> 0$, which implies there must be at least one tournament graph
+(outcome) in $\bar{Q}$, that is, at least one tournament graph that
+is $10$-neutral. In fact, since $\lim_{n\to\infty} \prob{Q} = 0$, it follows that almost all $n$-player tournaments will be
+$10$-neutral for large enough $n$.
+
+Note: The number $10$ is not special. The same argument shows that for any fixed $k$, almost all $n$-player tournaments are $k$-neutral if $n$ is large enough (relative to $k$). Some small $(k,n)$ pairs that are known to work are:
+\[
+(1,3), (2,21), (3,33), (4,46), (5,59), (6,72), (7,85), (8,98)
+\]
+\end{solution}
+
+\end{problemparts}
+
+\end{problem}
+                                 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem ends here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\endinput

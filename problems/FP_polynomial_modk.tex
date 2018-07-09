@@ -1,0 +1,98 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{FP_polynomial_modk}
+  \pcomment{stimulated by FP_sequence_gcd}
+  \pcomment{ARM 4/30/18}
+\end{pcomments}
+
+\pkeywords{
+  polynomial
+  gcd
+  lcm
+  number_theory
+  modular
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+Let $p(x)$ be an integer polynomial, that is, $p(x) = \sum_{i=0}^d c_i
+x^i$ where the coefficients $c_i$ are integers.
+
+\bparts
+
+\ppart\label{pkprem} Explain why $p(k) \equiv p(\rem{k}{n})
+\pmod n$ for all integers $k, n$ where $n>1$.
+
+\examspace[1.5in]
+\begin{solution}
+By the General Principle of Remainder Arithmetic \inbook{of
+  Section~\bref{remainder_arithmetic_sec}}, in any sequence of integer
+additions and multiplications, we can replace any integer by its
+remainder on division by $n$, and the result will still have the same
+remainder on division by $n$.  So replacing $k$ by $\rem{k}{n}$ in any
+integer polynomial will leave the same remainder on division by $n$.
+That is, $\rem{p(k)}{n} = \rem{p(\rem{k}{n})}{n}$, which means $p(k)
+\equiv p(\rem{k}{n}) \pmod n$.
+\end{solution}
+
+\eparts
+
+
+Now let
+\[
+q(x) \eqdef (x^2-4)(x^2-9),
+\]
+and let $q(\nngint) \eqdef \set{q(0),q(1),q(2),\dots}$.
+
+\bparts
+\ppart\label{3dQ}
+Verify that 3 divides every element of $q(\nngint)$.  \inhandout{\hint part~\eqref{pkprem}}
+
+\examspace[1.5in]
+\begin{solution}
+Every element of $q(\nngint)$ is equivalent modulo three to $p(0) = 36$, $p(1)
+= 24$, or $p(2) = 0$ by part~\eqref{pkprem}.  Since 36, 24, and 0 are
+all equivalent to zero modulo three, so is every element of $q(\nngint)$.
+\end{solution}
+
+\ppart\label{4dQ}
+Verify that 4 divides every element of $q(\nngint)$.
+
+\examspace[1.5in]
+
+\begin{solution}
+Similarly, every element of $q(\nngint)$ is equivalent modulo four to $p(0) =
+36$, $p(1) = 24$, or $p(2) = 0 = p(3)$ by part~\eqref{pkprem}.  Since
+36, 24, and 0 are all equivalent to zero modulo four, so is every
+element of $q(\nngint)$.
+\end{solution}
+
+\ppart
+Prove that $\gcd(q(\nngint)) = 12$.
+
+
+
+\iffalse 12 is the largest integer that divides every element of
+$q(\nngint)$.\fi
+
+
+\begin{solution}
+Any integer that divides $q(0) = 36$ and $q(1)= 24$ must divide
+their gcd $12$.  So any integer that divides every element of
+$q(\nngint)$ must divide 12.
+
+But by parts~\eqref{3dQ},~\eqref{4dQ}, every element of $q(\nngint)$ is
+divisible by three and four, and so is divisible by $\lcm(3,4) = 12$.
+So the largest integer that divides every element of $q(\nngint)$ must divide
+twelve and be divisible by twelve, and this implies that it equals twelve.
+\end{solution}
+
+\eparts
+
+\end{problem}
+
+\endinput

@@ -1,0 +1,108 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{PS_little_oh_properties}
+  \pcomment{from S09; asympotics notes}
+  \pcomment{format \& typos ARM 4/24/18}
+\end{pcomments}
+
+\pkeywords{
+  little_oh
+  asymptotics
+  partial_order
+  calculus
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+\bparts
+
+\begin{staffnotes}
+First part best deferred to the last.
+\end{staffnotes}
+
+\ppart In the proof of Lemma~\bref{logxxe} that $\log_2 x =
+o(x^\epsilon)$ for any $\epsilon > 0$, we relied on the ``familiar
+fact'' that $\log_2 x < x$ for all $x > 1$.  Prove this familiar fact
+(may require elementary calculus).
+
+\begin{solution}
+Letting $f(x)\eqdef x-\log_2 x$, we must show that $f(x) > 0$ when $x
+> 1$.  This function is continuous and differentiable on this interval,
+and its derivative is $f'(x) = 1-\frac{\log_2 e}{x}$, which has
+only one root, namely $a\eqdef \log_2 e \approx 1.443$.
+Furthermore, $f'(x)$ is negative when $x < a$ and positive when $x >
+a$, so $f$ has its only local and global minimum at $x=a$.  Because
+$f(a) > .913 > 0$ at this global minimum, it follows that $f(x)$ is
+always positive when $x > 1$---in fact, when $x > 0$.
+\end{solution}
+
+\ppart
+Prove that the relation $R$ on positive functions such that $f\mrel{R}g$ iff $g = o(f)$
+is a strict partial order.
+
+\begin{solution}
+We must show that $R$ is transitive and irreflexive.  To show that $R$
+is irreflexive, for any positive function $f$ we have
+\[
+\lim_{x\to \infty} f(x)/f(x) = \lim_{x\to\infty} 1 = 1,
+\]
+so in particular this limit cannot equal $0$.  This means $f = o(f)$
+does not hold for any $f$.
+
+For transitivity, assume $f \mrel{R} g$ and $g\mrel{R} h$, that is, $h =
+o(g)$ and $g = o(f)$; we must prove that $h = o(f)$.  From the
+definition of little-o,
+  \begin{equation*}
+    \lim_{x\to\infty} \frac{g(x)}{f(x)} = \lim_{x\to\infty} \frac{h(x)}{g(x)} = 0.
+  \end{equation*}
+We may now compute that
+  \begin{align}
+\lefteqn{\lim_{x\to\infty} \frac{h(x)}{f(x)}}\notag\\
+    & = \lim_{x\to\infty} \frac{h(x)}{g(x)}\cdot\frac{g(x)}{f(x)} \notag\\
+    & = \paren{\lim_{x\to\infty} \frac{h(x)}{g(x)}}
+        \cdot \lim_{x\to\infty} \frac{g(x)}{f(x)}\tag{*}\\ %\label{limit-product-split}
+    & = 0 \cdot 0 = 0.\notag
+  \end{align}
+Splitting the limit into the product of two limits in~(*) %line~\eqref{limit-product-split}
+is justified because the latter two limits are both finite.  This
+shows that $h = o(f)$, that is, $f\mrel{R} h$, as desired.
+\end{solution}
+
+\ppart If $g$ is a positive function, prove than $f \sim g$ iff $f = g
++ h$ for some function $h = o(g)$.
+
+\begin{solution}
+The statement $f\sim g$ means
+\[
+    \lim_{x\to\infty} \frac{f(x)}{g(x)} = 1.
+\]
+By subtracting $1$ from each side, this is equivalent to
+\[
+    \lim_{x\to\infty} \frac{f(x)-g(x)}{g(x)} = 0,
+\]
+which in turn is precisely the definition of $f-g = o(g)$.  So $f\sim
+g$ is true \emph{if and only if} the function $h \eqdef f-g$ is
+$o(g)$, as desired.
+
+\emph{Note}: In this proof, we were careful to indicate that every
+logical step was an \emph{equivalence} (as in $\QIFF$), not just an
+implication.  If instead we said something like ``this implies''
+instead of ``this is equivalent to,'' we would have ended up proving
+$f\sim g \QIMPLIES f-g = o(g)$, which is only half of the required
+claim.
+\end{solution}
+
+\eparts
+
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem ends here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\endinput

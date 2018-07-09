@@ -1,0 +1,62 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{FP_truth_table}
+  \pcomment{zabel s18}
+\end{pcomments}
+
+\pkeywords{
+  truth table
+  normal forms
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+  \bparts 
+  \ppart\label{make-truth-table} Draw a truth table for the formula
+  \begin{equation*}
+    A\QIMPLIES\QNOT(B\QIMPLIES C).
+  \end{equation*}
+  Be sure to show your work.
+  
+  \begin{solution}
+    % \setlength{\tabcolsep}{1pt}
+    \begin{tabular}[h!]{ccc|c@{\hskip 2pt}c@{\hskip 2pt}c@{\hskip 2pt}c@{\hskip 2pt}c@{\hskip 2pt}c}
+      $A$ & $B$ & $C$ & $A$ & $\QIMPLIES$ & $\QNOT($ & $B$ & $\QIMPLIES$ & $C)$ \\
+      T   & T   & T   &     & F           & F        &     & T           &      \\  
+      T   & T   & F   &     & T           & T        &     & F           &      \\  
+      T   & F   & T   &     & F           & F        &     & T           &      \\  
+      T   & F   & F   &     & F           & F        &     & T           &      \\  
+      F   & T   & T   &     & T           & F        &     & T           &      \\  
+      F   & T   & F   &     & T           & T        &     & F           &      \\  
+      F   & F   & T   &     & T           & F        &     & T           &      \\  
+      F   & F   & F   &     & T           & F        &     & T           &      
+    \end{tabular}
+  \end{solution}
+
+  \examspace[4in]
+  
+  \ppart Use part~\eqref{make-truth-table} to write a \textbf{Full Disjunctive Normal Form} that is equivalent to the formula given above. No explanation is required.
+
+  \begin{solution}
+    \begin{equation*}
+      (A \QAND B \QAND \bar{C}) \QOR
+      (\bar{A} \QAND B \QAND C) \QOR
+      (\bar{A} \QAND B \QAND \bar{C}) \QOR
+      (\bar{A} \QAND \bar{B} \QAND C) \QOR
+      (\bar{A} \QAND \bar{B} \QAND \bar{C}).
+    \end{equation*}
+  \end{solution}
+
+  \eparts
+
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem ends here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\endinput

@@ -1,0 +1,156 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{PS_MIT_Harvard_degree_value_monthly}
+  \pcomment{subsumes PS_MIT_Harvard_degree_value}
+  \pcomment{ARM 4/28/18}
+\end{pcomments}
+
+\pkeywords{
+  geometric_sum
+  series
+  summation
+  interest
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+Is a Harvard degree really worth more than an MIT degree?  Let us say
+that a new Harvard graduate starts with a monthly salary of \$10K and
+gets a \$1K raise every month.  So after one month, the Harvard grad
+gets paid \$10K, at the end of the second month they get paid \$11K, at
+the end of the third month \$12K, \dots.
+
+On the other hand, a new MIT graduate starts with a monthly salary of
+\$6,000, but gets a 2\% raise every month.  So after one month, the
+MIT grad gets paid \$6K, at the end of the second month they get paid
+$1.02\cdot \$6K = \$6,120$, at the end of the third month $1.02\cdot
+\$6120 = \$6242.40$, \dots.  Assume inflation is a fixed $0.3\%$ per
+month.  That is, \$1.003 a month from now is worth \$1.00 today.
+
+\begin{problemparts}
+
+\ppart Write a closed form formula for the total number of thousands
+of dollars a Harvard grad will earn during the $n$ years after
+graduation.  What is the total when $n=25$?
+
+\begin{solution}
+\[
+\mbox{Hvd-total}_n  =\sum_{1}^{12n} 10 + (i-1) = 120n + 12n(12(n-1))/2 = 72n^2 + 114n.
+\]
+For $n = 25$, the total is \$47850K.
+\end{solution}
+
+\problempart Write a closed form formula for the value in today's
+dollars of a Harvard degree, assuming the Harvard grad will work for
+$n$ years following graduation.  What is the value when $n=25$?
+
+\begin{solution}
+One dollar at the end of month $i$ is worth $r^i$ in today's currency,
+where
+\[
+r \eqdef \frac{1}{1.003}
+\]
+So
+\[
+\mbox{Hvd-val}_n  = \sum_{1}^{12n} (10+ (i-1))r^i
+     = 10r\sum_{i=0}^{12n-1} r^i + r\sum_{i=0}^{12n-1} i r^i.
+\]
+Using the formula\inbook{~(\bref{geometric-sum-n})} for geometric
+series, we have
+\[
+\sum_{i=0}^{12n-1} r^i = \frac{(1- r^{12n})}{1 - r}.
+\]
+Also, applying the formula\inbook{~(\bref{sumixi})}\inhandout{ from the
+  text} for a sum of terms of the form $ir^i$, we have
+\[
+\sum_{i=0}^{12n-1} ir^i = \frac{{r - 12n r^{12n} + (12n-1) r^{12n+1}}}{(1-r)^2},
+\]
+so
+\[
+\mbox{Hvd-val}_n
+= 10r \frac{(1- r^{12n})}{1 - r} +
+    r \frac{{r - 12n r^{12n} + (12n-1) r^{12n+1}}}{(1-r)^2}.
+\]
+
+\begin{staffnotes}
+\begin{verbatim}
+(define r (/ 1 1.003))
+
+(define (h-val n)
+  (+ (* 10 r (/ (- 1 (expt r (* 12 n))) (- 1 r)))
+     (* r (/ (+ r
+                (* (- (* 12 n))   (expt r (* 12 n)))
+                (* (- (* 12 n) 1) (expt r (+ (* 12 n) 1))))
+             (* (- 1 r) (- 1 r))))))
+(h-val 25)
+;Value: 27140.293424774896
+\end{verbatim}
+\end{staffnotes}
+
+For $n = 25$, the value is \$27140K, which is about half the total
+paid out over 25 years.
+
+\end{solution}
+
+\problempart Likewise for an MIT degree.
+
+\begin{solution}
+\[
+\mbox{MIT-tot}_n = 6 \sum_{i=1}^{12n }1.02^i = 6\paren{\paren{\sum_{i=0}^{12n} 1.02^i}- 1}
+= 6\paren{\frac{1 - 1.02^{12n+1}}{1 - 1.02} - 1}.
+\]
+
+\begin{staffnotes}
+\begin{verbatim}
+(define p 1.02)
+
+(define (m-tot n)
+    (* 6
+       (- (/ ( - 1 (expt p (+ (* 12 n) 1)))
+             (- 1 p))
+          1)))
+(m-tot 25)
+;Value: 116045.75946682901
+\end{verbatim}
+\end{staffnotes}
+For $n = 25$, the MIT total is \$116046K, which is almost two and a
+half times the Harvard total.
+
+
+\[
+\mbox{MIT-val}_n = 6\sum_{i=1}^{12n} {1.02}^i r^i
+= 6\paren{\paren{\sum_{i=0}^{12n} (1.02r)^i}- 1}
+= 6\paren{\frac{1 - (1.02r)^{12n+1}}{1 - 1.02r} - 1}.
+\]
+
+\begin{staffnotes}
+\begin{verbatim}
+(define p 1.02)
+
+(define r (/ 1 1.003))
+
+(define (m-val n)
+    (* 6
+       (- (/ ( - 1 (expt (* p r) (+ (* 12 n) 1)))
+             (- 1 (* p r)))
+          1)))
+(m-val 25)
+;Value: 55368.085473375395
+\end{verbatim}
+\end{staffnotes}
+
+For $n = 25$, the value the MIT degree is \$55368K, which is a little
+more than twice as valuable as a Harvard degree! (But we took that for
+granted, right?)
+\end{solution}
+
+\end{problemparts}
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem ends here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

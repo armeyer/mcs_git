@@ -1,0 +1,52 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{FP_mersenne_primes}
+  \pcomment{zabel s18}
+\end{pcomments}
+
+\pkeywords{
+  number_theory
+  modular_arithmetic
+  primes
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+  
+  \bparts
+  
+  \ppart\label{mersenne-number-div} If $a,b$ are positive integers and
+  $a \divides b$, prove that $2^a-1 \mid 2^b-1$. \hint $2^a\equiv 1
+  \pmod {2^a-1$}
+
+  \begin{solution}
+    TBD
+  \end{solution}
+  
+  \ppart Use part~\eqref{mersenne-number-div} to prove that if $n$ is
+  a positive integer and $2^n-1$ is prime, then $n$ must itself be
+  prime.
+  
+  \begin{solution}
+    TBD
+
+    Note that the converse is not true: even if $p$ is prime, $2^p-1$
+    might not be prime. For example, $2^{11}-1 = 2047 = 23\cdot
+    89$.  Primes of the form $2^n-1$ are called \emph{Mersenne primes},
+    and currently only 50 examples are known.  The largest example,
+    $2^{77,232,917}-1$, was found in December 2017 and has more than
+    23 million digits.
+  \end{solution}
+
+  \eparts
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem ends here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\endinput

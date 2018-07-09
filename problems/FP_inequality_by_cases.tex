@@ -1,0 +1,78 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{FP_inequality_by_cases}
+  \pcomment{zabel s18}
+  \pcomment{Inspired by \url{http://sites.millersville.edu/bikenaga/math-proof/cases/cases.html}}
+\end{pcomments}
+
+\pkeywords{
+  proof
+  cases
+  inequality
+  absolute value
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+
+  Define the function
+  \begin{equation*}
+    f(x) \eqdef 2\abs{x+2} - \abs{x-3} - \abs{x+4}
+  \end{equation*}
+  for real numbers $x$. Carefully prove that
+  \begin{equation*}
+    -7 \le f(x) \le 3 \quad \text{for all $x\in\reals$},
+  \end{equation*}
+  using a \textbf{proof by cases} based on the value of $x$.
+  
+\hint $\abs{x+4}$ equals $x+4$ when $x\ge -4$ and equals $-(x+4)$ when
+$x\le -4$. You should have 4 cases.
+
+\begin{solution}
+  As in the hint, for any real number $a$ the expression $\abs{x+a}$ equals $x+a$ or $-(x+a)$ depending on whether $x \ge a$ or $x\le a$ (when $x=a$, both expressions are correct), so the values of $\abs{x+2}$, $\abs{x-3}$, and $\abs{x+4}$ can be simplified if we know how $x$ compares to the numbers $-2$, $3$, and $-4$, respectively. We will thus use $4$ cases, depending on which interval $x$ lies in:
+  \begin{equation*}
+    (-\infty, -4],\quad (-4, -2],\quad (-2, 3],\quad \text{or}\quad (3,\infty).
+  \end{equation*}
+  Every real number $x$ lies in one of these intervals since they partition $\reals$, so these cases are exhaustive.
+
+  \begin{itemize}
+  \item Case 1: $x \le -4$. As described in the hint, when $x\le -4$ we know that $\abs{x+2} = -(x+2)$, $\abs{x-3} = -(x-3)$, and $\abs{x+4} = -(x+4)$. It follows that
+    \begin{equation*}
+      f(x) = -2(x+2) + (x-3) + (x+4) = -3,
+    \end{equation*}
+    which indeed lies in the range $[-7,-3]$.
+
+  \item Case 2: $-4 < x \le -2$. When $x$ lies in this range, we have $\abs{x+2} = -(x+2)$, $\abs{x-3} = -(x-3)$, and $\abs{x+4} = x+4$, so
+    \begin{equation*}
+      f(x) = -2(x+2) + (x-3) - (x+4) = -2x - 11.
+    \end{equation*}
+    Because $-4 < x \le -2$, we may check that
+    \begin{equation*}
+      -2(-2)-11 \le -2x-11 < -2(-4)-11,
+    \end{equation*}
+    i.e., $-7 \le f(x) < -3$, which is within the allowed range.
+
+  \item Case 3: $-2 < x \le 3$. In this case we have  $\abs{x+2} = x+2$, $\abs{x-3} = -(x-3)$, and $\abs{x+4} = x+4$, so we may compute $f(x) = 2x-3$. It follows that
+    \begin{equation*}
+      2(-2)-3 < 2x-3 \le 2(3)-3,
+    \end{equation*}
+    i.e., $-7 < f(x) \le 3$.
+
+  \item Case 4: $x > 3$. In this case $\abs{x+2} = x+2$, $\abs{x-3} = x-3$, and $\abs{x+4} = x+4$, so $f(x)$ simplifies to just $f(x) = 3$, which indeed lies between $-7$ and $3$.
+    
+  \end{itemize}
+
+  We've verified that $f(x) \in [-7,3]$ in all cases, which proves the theorem.  
+\end{solution}
+
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem ends here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\endinput

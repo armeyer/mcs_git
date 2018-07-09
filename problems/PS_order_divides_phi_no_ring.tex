@@ -1,0 +1,119 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{PS_order_divides_phi_no_ring}
+  \pcomment{version of PS_order_divides_phi avoiding $\Zmod{n}$ notation, for s18 mid4.}
+\end{pcomments}
+
+\pkeywords{
+  Euler_function
+  Eulers_theorem
+  number_theory
+  congruence
+  phi
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+
+\begin{definition*}
+Define the \emph{order of $k$ modulo $n$}, written as $\ordmod{k}{n}$, to be the
+smallest positive power of $k$ congruent to $1$ modulo $n$, that is,
+\[
+\ordmod{k}{n} \eqdef \min \set{m > 0 \suchthat\ \ k^m \equiv 1 \pmod n}.
+\]
+If $k^m$ is \emph{never} congruent to $1 \bmod n$ for any positive
+integer $m$, then $\ordmod{k}{n} \eqdef \infty$.
+\end{definition*}
+
+\bparts
+
+\ppart For integers $k$ and $n$, show that if $\ordmod{k}{n}$ is
+finite then $k$ and $n$ are relatively prime.
+
+\examspace[1.5in]
+
+\begin{solution}
+If $\ordmod{k}{n} = m$ then $k^m\equiv 1\pmod n$, that is, $k^m = 1 + q n$
+for some integer $q$.  Then $\gcd(k,n)$ must divide the linear
+combination $k^{m-1}\cdot k  - q\cdot n = 1$, meaning $\gcd(k,n) = 1$,
+as desired.
+
+Alternatively, $k^{m-1}$ is a multiplicative inverse of $k$ modulo
+$n$, so $k$ must be relatively prime to $n$ by
+Theorem~\bref{thm:mod_inverses}.
+\end{solution}
+
+\ppart Show conversely that if $k$ and $n$ are relatively prime then
+$\ordmod{k}{n}$ is finite.
+
+\examspace[1.5in]
+
+\begin{solution}
+Because $\gcd(k,n) = 1$, by Euler's theorem, we have
+$k^{\phi(n)}\equiv 1\pmod n$.  So $\ordmod{k}{n}$ is at most $\phi(n)$
+and is therefore finite.
+
+Alternatively, by the Pigeonhole Principle, some pair of entries in
+the list
+\[
+k^0,\ k^1,\ k^2,\ \dots,\ k^{n}
+\]
+must be congruent modulo $n$, because there are only $n$ possible
+remainders and the list has $n+1$ entries.  In other words, $k^i
+\equiv k^{i+m}\pmod n$ for some $i,m \in \Zintv{1}{n}$.  But $k$ is
+cancellable modulo $n$ because $\gcd(k,n) = 1$, so $k^m \equiv 1\pmod
+n$.  This means $\ordmod{k}{n} \le m$.
+\end{solution}
+
+\ppart Prove that if $k$ and $n$ are relatively prime, then
+$\ordmod{k}{n}$ divides $\phi(n)$.
+
+\hint Let $m = \ordmod{k}{n}$ and  divide $\phi(n)$ by $m$.  So
+\[
+\phi(n) = q\cdot m  + r \text{ where } 0 \leq r < m.
+\]
+
+\iffalse
+\hint Let $m = \ordmod{k}{n}$, and consider the quotient and remainder
+of $\phi(n)$ when divided by $m$.  In other words, write $\phi(n) =
+q\cdot m + r$ where $r=\rem{\phi(n)}{m}$.
+\fi
+
+\examspace[2.5in]
+
+\begin{solution}
+\begin{proof}
+\iffalse %Use if hint is omitted
+Let $m = \ordmod{k}{n}$, and write $\phi(n) = q\cdot m + r$ for
+integers $q$ (the quotient) and $r$ (the remainder) where $0 \le r <
+m$.\fi
+
+We have
+\begin{align*}
+1 &\equiv k^{\phi(n)} & \text{(Euler)}\\
+  & = k^{qm + r} & \\
+  & = (k^m)^q\cdot k^r & \\
+  &\equiv 1^q \cdot k^r & \text{(Def of $m$)} \\
+  &\equiv k^r.
+\end{align*}
+But $r < m$ and $m$ is the smallest \emph{positive} power of $k$
+congruent to $1 \bmod n$, so $r$ must be $0$.  This means $\phi(n) =
+qm$, so $m$ divides $\phi(n)$.
+\end{proof}
+
+\end{solution}
+
+\eparts
+\end{problem}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem ends here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\endinput
+

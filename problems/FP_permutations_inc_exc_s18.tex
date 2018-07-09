@@ -1,0 +1,58 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+\pcomment{FP_permutations_inc_exc_s18}
+\pcomment{rewording of FP_permutations_inc_exc for s18}
+\end{pcomments}
+
+\pkeywords{
+  permutation
+  inclusion_exclusion
+  binomial_coefficient
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{problem}
+  A permutation of the letters $a,b,c,d,e,f,g,h$ is called \emph{jumbled} if the letters $a,b,c$ are not in order and the letters $d,e$ are not in order. For example, $fbg\textbf{d}ac\textbf{e}h$ is \emph{not} jumbled because $d$ occurs before $e$, and $f\textbf{a}e\textbf{b}gd\textbf{c}h$ is not
+  jumbled because $a$ occurs before $b$ and $b$ occurs before $c$. On the other hand, the permutation $fbgaedch$ is jumbled.
+
+  Use \textbf{Inclusion-Exclusion} to compute the number of jumbled permutations of $a,b,c,d,e,f,g,h$, and \textbf{explain} your reasoning. Your numerical answer may involve factorials, binomial coefficients, etc., and may be left unevaluated.
+
+  Solutions that do not use Inclusion-Exclusion will not receive credit.
+  
+\begin{solution}
+
+Let \textit{ALL} be the $8!$ permutations of
+all eight letters, let \textit{ABC} be those permutations with $a,b,c$ appearing in
+order, and \textit{DE} those permutations with $d,e$ in order.  So
+$\card{\textit{ABC}} = 8\cdot 7\cdot 6\cdot 5\cdot 4$, since a
+permutation in \textit{ABC} is uniquely determined by the 5 out of 8 positions of
+the 5 letters besides $a,b,c$.  Likewise $\card{\textit{DE}} = 8!/2!$.
+Also, $\card{\textit{ABC} \intersect \textit{DE}}$ is determined by the
+$8\cdot 7 \cdot 6$ positions of $f,g,h$ and then the $\binom{5}{2}$ places to put
+$d$ and $e$ in order, that is,
+\[
+\card{\textit{ABC} \intersect \textit{DE}} = \frac{8!}{2!}\cdot
+\binom{5}{2}.
+\]
+Then the number of allowed permutations is
+\begin{align*}
+\card{\textit{ALL}} - \card{\textit{ABC} \union \textit{DE}}
+& = 8! - \card{\textit{ABC}} - \card{\textit{DE}} + \card{\textit{ABC} \intersect \textit{DE}}\\
+& = 8! - 8!/3! - 8!/2! + 8!/5!\binom{5}{2}\\
+& = 8\cdot 7\cdot 6[5! - 5\cdot 4 - 5\cdot 4\cdot 3 + 5\cdot 4/2]\\
+& = 8\cdot 7\cdot 6[120-20-60+10] = 8\cdot 7\cdot 6\cdot 50 = 16,800.
+\end{align*}
+
+\end{solution}
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem ends here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\endinput

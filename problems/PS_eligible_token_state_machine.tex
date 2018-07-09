@@ -1,0 +1,195 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{PS_eligible_token_state_machine}
+  \pcomment{extension of FP_eligible_token_state_machine from S18, final, S16.mid2}
+  \pcomment{ARM revised 5/21/18}
+  \pcomment{last two parts by Richard Spence in 2016 not in exams}
+  \pcomment{leaves unresolved the reachability of eligible states with min b,w <= 2.}
+\end{pcomments}
+
+\pkeywords{
+  state_machine
+  invariant
+  preserved_invariant
+  reachable
+  induction
+  remainder
+  derived_variable
+  constant
+  increasing
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\BE}{\text{BE}}
+
+\begin{problem}
+
+\emph{Token replacing-1-3} is a single player game using a set of tokens,
+each colored black or white.  In each move, a player can replace a
+black token with three white tokens, or replace a white token with
+three black tokens.  We can model this game as a state machine whose
+states are pairs $(b,w)$ of nonnegative integers, where $b$ is the
+number of black tokens and $w$ the number of white ones.
+
+The game has two possible start states: $(5,4)$ or $(4,3)$.
+
+We call a state $(b,w)$ \emph{eligible} when
+\begin{align}
+\rem{b-w}{4} & = 1
+\end{align}
+This problem examines the connection between eligible states and
+states that are \emph{reachable} from either of the possible start
+states.
+
+\bparts
+
+\ppart Prove that the predicate
+\[
+P(b,w)\eqdef [\rem{b-w}{4} = 1],
+\]
+is a preserved invariant of this state machine.
+
+\examspace[1.0in]
+
+\begin{solution}
+$P$ is a preserved invariant, because if state $(b,w)$ transitions to
+  $(b',w')$, then by definition $(b',w') = (b+3,w-1)\text{ or }(b-1,
+  w+3)$.  But
+\[
+\rem{(b+3)-(w-1)}{4} = \rem{(b-1)-(w+3)}{4} = \rem{b-w}{4}.
+\]
+So if $\rem{b-w}{4} = 1$ then $\rem{b'-w'}{4} = 1$.
+\end{solution} 
+
+\ppart\label{reachisel} Conlude that every reachable state is eligible.
+
+\examspace[0.6in]
+
+\begin{solution}
+$P$ is a preserved invariant that is true for both start
+  states, so by the Invariant Principle, $P$ is true for all reachable
+  states.
+\end{solution}
+
+\ppart Prove that the eligible state $(3,2)$ is not reachable.  \hint
+$b+w$ is strictly increasing.
+
+\examspace[0.8in]
+    
+\begin{solution}
+Each transition increases $b+w$ by $2$, so $b+w$ is a strictly
+increasing derived variable.  Since $b+w$ for both start states is
+$\geq 7$, no state with $b+w <7$ is reachable.  In particular, $3+2 <
+7$, so $(3,2)$ is not reachable.
+\end{solution}
+
+\eparts
+
+\medskip
+
+Say that a state $(b,w)$ is \emph{big enough} when $\min(b,w) > 2$.
+We now prove the
+\begin{claim*}
+A big enough state is reachable iff it is eligible.
+\end{claim*}
+
+Reachable states must be eligible by part~\eqref{reachisel}, so we
+just have to show that eligibility implies reachability for big enough
+states.  Let
+\[
+\BE(b,w) \eqdef (b,w)\ \text{is big enough and eligible}.
+\]
+
+\bparts
+
+\ppart\label{fact5} Prove that if $\max(b,w) \leq 5$, then $\BE(b,w)$ implies
+$(b,w)$ is reachable.
+
+\hint There are only nine states with $b,w \in \set{3,4,5}$.
+
+\begin{solution}
+There are only nine states with $3 \leq \min(b,w)$ and $\max(b,w) \leq
+  5$, and it is not hard to check that among these, only the start
+  state $(5,4)$ satisfies the preserved invariant.  The start state is
+  reachable by definition, so all big-enough eligible states with
+  $\max(b,w) \leq 5$ are reachable.
+\end{solution}
+
+
+\ppart Prove the Claim by strong induction using the induction
+hypothesis:
+\begin{equation}\label{indhypP}
+Q(n) \eqdef \forall b,w.\, [b+w = n\ \QIMPLIES\
+    [\BE(b,w) \QIMPLIES (b,w)\ \text{is reachable}].
+\end{equation}
+
+\hint $Q(n-2) \QIMPLIES Q(n)$.
+
+\examspace[3.0in]
+
+\begin{solution}
+\begin{proof}
+\inductioncase{Base cases}: ($n \leq 5$).  The base cases follow from
+part~\eqref{fact5}.
+
+\inductioncase{Induction step}.  Given $b+w = n \geq 6$ and
+$\BE(b,w)$, we must prove that $(b,w)$ is reachable.  By
+part~\eqref{fact5}, we may assume that $\max(b,w) \geq 6$.
+
+Now suppose $b \geq w$.  Since $(b,w)$ is big enough, $\min(b-3,w+1)
+\geq 3$, so $(b-3,w+1)$ is big enough.  Also, $\rem{(b-3,w+1)}{4} =
+\rem{(b,w)}{4}$ and $(b,w)$ is eligible, so $(b-3,w+1)$ is also
+eligible.  But $(b-3)+(w+1) = n-2 > 0$, so $(b-3,w+1)$ is reachable by
+induction hypothesis $Q(n-2)$.  Since $(b-3,w+1)$ transitions to
+$(b,w)$ in one step, we conclude that $(b,w)$ is reachable.
+
+Alternatively, if $w \geq b$, then, by the same reasoning, $(b+1,
+w-3)$ is reachable, and therefore $(b,w)$ is reachable.
+
+So in any case, $(b,w)$ is reachable, as required.
+\end{proof}
+\end{solution}
+
+
+\iffalse
+\ppart Prove that the derived variable $\rem{b-w}{4}$ is a constant.
+Conclude that $(4^7 +1 , 4^5 +2)$ is \emph{not} reachable.
+
+\examspace[1.0in]
+
+\begin{solution}
+If there is a transition from $(b,w)$ to $(b',w')$, then $(b'-w') =
+(b-w) \pm 4$, which implies that $\rem{b'-w'}{4} = \rem{b-w}{4}$, that
+is the value of the derived variable is the same.
+
+This derived variable equals 1 for both start states and therefore
+equals 1 for all states reachable from either of these start states.
+
+On the other hand, this derived variable equals 3 for the target state
+$(4^7 + 1 , 4^5 + 2)$:
+\[
+\rem{(4^7 + 1) - (4^5 +2)}{4} = \rem{4(4^6 - 4^4) - 4 + 3}{4} = 3h
+\]
+which means $(4^7 + 1 , 4^5 + 2)$ is not reachable.
+\end{solution}
+\fi
+
+\ppart Verify that $\rem{3b-w}{8}$ is also a derived variable that is
+constant.  Conclude that no state is reachable from both start states.
+
+\examspace[1.0in]
+
+\begin{solution}
+The variable equals 3 at start state $(5,4)$ while it equals 1 at
+start state $(4,3)$.
+\end{solution}
+
+\eparts
+
+\end{problem}
+
+\endinput

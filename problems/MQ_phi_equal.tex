@@ -1,0 +1,50 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{MQ_phi_equal}
+  \pcomment{ARM 4/30/18}
+\end{pcomments}
+
+\pkeywords{
+  Euler
+  phi
+  number_theory
+  congruence
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+Prove that for all integers $n \geq 2$,
+\[
+\phi(n) = \phi(2n) \QIFF n \text{ is odd}.
+\]
+
+\begin{solution}
+If $m$ is odd, then for $k>0$,
+\[
+\phi(2^k m) = \phi(2^k)\phi(m) = 2^{k-1}\phi(m)
+\]
+by Theorem~\bref{th:phi}.  So if $n$ is odd, then
+\[
+\phi(2 n) = \phi(2^1 n) = 2^{1-1}\phi(n) = \phi(n).
+\]
+
+Conversely, if $n$ is not odd, then $\phi(n) \neq \phi(2n)$.  This
+follows because $n = 2^k m$ for some odd number $m \geq 1$ and $k>0$,
+so
+\begin{align*}
+\phi(n)
+ & = \phi(2^k)\phi(m)\\
+ & = 2^{k-1}\phi(m)\\
+ & \neq 2^k\phi(m) & \text{(since $\phi(2^{k-1}) > 0$)}\\
+ & = \phi(2^{k+1})\phi(m)\\
+ & = \phi(2^{k+1}m)\\
+ & = \phi(2n).
+\end{align*}
+\end{solution}
+\end{problem}
+
+\endinput

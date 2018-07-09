@@ -1,0 +1,226 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{CP_conditional_even_throws2}
+  \pcomment{complements PS_conditional_expectation_even_throws}
+  \pcomment{ARM 5/27/18}
+\end{pcomments}
+
+\pkeywords{
+  conditional_probability
+  dice
+  independence
+  total_probability
+  geometric_series
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+A fair six-sided die is repeatedly thrown until a six appears.
+
+A natural sample space modelling this situation is the set of finite
+strings of integers from one to six that end at the first occurrence
+of a six.  That is, $\sspace \eqdef \strings{\Zintv{1}{5}}6$.
+
+For example, 256 is the outcome corresponding to successively throwing
+a two, a five and a six.  The length-one string $6 \in \sspace$ is the
+outcome corresponding to six appearing on the first throw.
+
+\bparts \ppart\label{throwprob} What should $\pr{256}$ be defined to
+be? \dots $\pr{6}$?  What about the probability of an arbitrary
+outcome $s \in \sspace$?
+
+\begin{solution}
+\[
+\pr{s} \eqdef (1/6)^{\lnth{s}},
+\]
+so
+\begin{align*}
+\pr{256} & = (1/6)^3 = 1/216,\\
+\pr{6} & = 1/6.
+\end{align*}
+\end{solution}
+
+\ppart Verify that $\sspace$ with the probabilities assigned in
+part~\eqref{throwprob} defines a probability space.  What does this
+imply about the possibility of never throwing a six?
+
+\begin{solution}
+To confirm the specified probabilities define a probability space, we
+need to verify that the probabilities sum to one:
+
+\begin{align*}
+\sum_{s \in \sspace} \pr{s}
+  & \eqdef \sum_{s \in \strings{\Zintv{1}{5}}6} (1/6)^{\lnth{s}}\\
+  & = \frac16 \sum_{r \in \strings{\Zintv{1}{5}}} (1/6)^{\lnth{r}}\\
+  & = \frac16 \sum_{n=0}^\infty \sum_{r \in \Zintv{1}{5}^n} (1/6)^n
+             = \frac16 \sum_{n=0}^\infty 5^n (1/6)^n\\
+  &  = \frac16 \sum_{n=0}^\infty (5/6)^n
+             \qquad = \frac16 \cdot \frac{1}{1-(5/6)} \quad = 1.
+\end{align*}
+
+So if we wanted to include an additional sample point $\omega$
+corresponding to possibly an infinite number of throws without a six,
+the only choice would be $\pr{\omega} = 0$.
+
+In a discrete probability space, the probability of an event is the
+same as the probability of the nonzero-probability outcomes in the
+event.  It follows that we can safely restrict our probability spaces
+to having only nonzero outcomes.  So we omit~$\omega$.
+\end{solution}
+
+\eparts
+\medskip
+
+For any string $r \in \strings{\Zintv{1}{5}}$, let $F_r$ be the event
+that values of the initial throws are are the successive elements of
+$r$.  Let $V$ be the event that all the dice throws are e\emph{V}en.  That
+is, $V$ is the event $\strings{\set{2,4}}6$ that all throws are twos
+and fours until the first six.
+
+\bparts
+
+\ppart Suppose $t$ is a string of twos and fours, that is, $t \in
+\strings{\set{2,4}}$.  Explain why
+\begin{equation}\label{VFtV}
+\prcond{V}{F_t} = \pr{V}.
+\end{equation}
+
+\begin{solution}
+If the first throws are a sequence $t$ of twos and fours, then we
+are in the same situation as at the start, so the probability that
+all the remaining throws will be even is the same as the probability
+of all evens in the first place.
+
+More formally, for any event $A \subseteq \sspace$ and die values $r
+\in \strings{\Zintv{1}{5}}$, let
+ \[
+rA \eqdef \set{rs \suchthat s \in A},
+\]
+So $F_r \eqdef r\sspace$.  Independence of die throws implies that
+\[
+  \pr{rA} =\pr{F_r}\pr{A}.
+\]
+Now for $t \in \strings{\set{2,4}}$,
+\[
+F_t \intersect V = tV,
+\]
+so
+\[
+\prcond{V}{F_t}
+     \eqdef \frac{\pr{F_t \intersect V}}{\pr{F_t}}
+     = \frac{\pr{tV}}{\pr{F_t}} = \frac{\pr{F_t}\pr{V}}{\pr{F_t}} = \pr{V}.
+\]
+\end{solution}
+
+\ppart\label{partFtVFt} Explain why equation~\eqref{VFtV} implies that for
+$t\in \strings{\set{2,4}}$,
+\begin{equation}\insolutions{\label{FtVFt}}\instatements{\notag}
+\prcond{F_t}{V} = \pr{F_t}.
+\end{equation}
+Conclude that
+\begin{equation}\label{6V23}
+\prcond{6}{V} = \frac23,
+\end{equation}
+
+\begin{solution}
+Equation~\eqref{VFtV} means that $V$ is \emph{independent} of $F_t$,
+so conversely $F_t$ is \emph{independent} of $V$, namely,~\eqref{FtVFt}.
+
+But given $V$, the first throw must be two, four or six, so
+\[
+1 =  \prcond{F_2}{V} + \prcond{F_4}{V} + \prcond{6}{V},
+\]
+and therefore,
+\[
+\prcond{6}{V} = 1 - \pr{F_2} - \pr{F_4} = 1 - \frac16  - \frac16 = \frac23.
+\]
+\end{solution}
+
+\ppart Given that all throws are even, the only possible first throws
+are two, four and six.  Since the die is fair, \textcolor{red}{these
+  are all equally likely, so the probability $\prcond{6}{V}$ that the
+  first throw is a six must be 1/3}, contradicting
+equation~\eqref{6V23}!  Explain.\footnote{If you're thrown by this,
+  you are not alone.  There are several
+  \href{http://www.untrammeledmind.com/2017/12/counterintuitive-dice-probability-how-many-rolls-expected-to-get-a-6-given-only-even-outcomes}{websites}
+  devoted to explanations of this seductive problem.  In fact, when it
+  came up at the MIT Theory of Computation faculty lunch in April
+  2018, several attendees confidently defended this mistaken
+  reasoning.}
+
+\begin{solution}
+We're only interested in the first throw, so it's tempting to think
+that the probability of a first-throw event conditioned on all throws
+being even would be the same as just conditioning on the first throw
+being even; that is a mistake.  In particular, two, four, and six are
+equally likely to be the first value thrown given that the
+\emph{first} throw is even, but they are \emph{not} equally likely
+given that \emph{all} throws are even.  In fact, the solution to
+part~\eqref{partFtVFt} shows that for $t\in \strings{\set{2,4}}$,
+\begin{align*}
+\prcond{F_{t2}}{V} & = \pr{F_{t2}} = \pr{F_t}\cdot \pr{F_2}\\
+    & \quad = \pr{F_t}\cdot \frac16,\\
+\prcond{F_{t4}}{V} & = \pr{F_{t4}} = \pr{F_t}\cdot \pr{F_4}\\
+    & \quad = \pr{F_t}\cdot \frac16,\\
+\prcond{\text{outcome}\ t6}{V} & \eqdef \frac{\pr{\set{t6}\intersect V}}{\pr{V}} = \frac{\pr{t6}}{\pr{V}} = \frac{\pr{F_t}\cdot \pr{6}}{\pr{V}}\\
+    & =  \pr{F_t} \cdot \frac{\pr{6}}{\pr{V}} = \pr{F_t} \cdot \prcond{6}{V}\\
+    & \quad = \pr{F_t} \cdot \frac23.
+\end{align*}
+This means that conditioned on all even throws, the resulting
+probability space is the same as the one that comes from independently
+throwing a biased three-sided die until a six appears, with
+probabilities of throwing two, four, and six respectively equal to
+1/6, 1/6 and 2/3.
+\end{solution}
+
+\ppart Conclude immediately from~\eqref{6V23} that
+\begin{equation}\label{pV14}
+\pr{V} = \frac14.
+\end{equation}
+
+\begin{solution}
+\[
+\prcond{6}{V} \eqdef \frac{\pr{6 \intersect V}}{\pr{V}},
+\]
+so
+\[
+\pr{V} = \frac{\pr{6 \intersect V}}{\prcond{6}{V}} = \frac{\pr{6}}{2/3} = \frac{1/6}{2/3} = \frac14.
+\]
+
+Less immediately, we could have calculated $\pr{V}$ as a sum over
+outcomes:
+\begin{align*}
+\pr{V} & \eqdef \sum_{n=0}^\infty \sum_{s \in \set{2,4}^n6} \pr{s}\\
+       &  = \sum_{n=0}^\infty \sum_{s \in \set{2,4}^n6} (1/6)^{n+1}
+             = \frac{1}{6}\sum_{n=0}^\infty 2^n (1/6)^n\\
+       &  = \frac{1}{6}\sum_{n=0}^\infty (1/3)^n
+             = \frac{1}{6} \cdot \frac{1}{1 - (1/3)} \quad = \frac{1}{4}.
+\end{align*}
+\end{solution}
+
+\eparts
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem ends here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\endinput
+
+
+\iffalse
+\[\begin{array}{lcll}
+\lefteqn{\sum_{s \in \sspace}}\\
+ & \eqdef & \sum_{s \in \strings{\Zintv{1}{5}}6} (1/6)^{\lnth{s}}
+            & = (1/6) \sum_{r \in \strings{\Zintv{1}{5}}} (1/6)^{\lnth{r}}\\
+\\
+ & =      & (1/6) \sum_{n=0}^\infty \sum_{r \in \Zintv{1}{5}^n} (1/6)^n
+            & = (1/6) \sum_{n=0}^\infty 5^n (1/6)^n\\
+\\
+ & =      & (1/6) \sum_{n=0}^\infty (5/6)^n
+            & = (1/6)\frac{1}{1-(5/6)} = 1.
+\end{array}\]\fi

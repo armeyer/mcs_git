@@ -1,0 +1,40 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{CP_countdiv3}
+  \pcomment{ARM from 'divisibility' MITx, April 26, 2018}
+\end{pcomments}
+
+\pkeywords{
+  counting
+ }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+How many ways are there to pick three distinct numbers from the
+integer interval $\Zintv{1}{15}$ such that the sum of the numbers is
+divisible by three?
+
+\begin{solution}
+\textbf{155}
+
+Divide each of the fifteen numbers in the interval by three.  Five of
+them leave remainder zero, five remainder one, and five remainder two.
+For the sum of three numbers in the interval to be divisible by three,
+they must all leave the same remainder, or each must leave a different
+remainder.  The are $\binom{5}{3}$ ways to pick three numbers with any
+given remainder, and there are three remainders, for a total of $3
+\cdot \binom{5}{3}$ ways to pick three numbers with the same
+remainder.  To pick three numbers in different classes, there are 5
+choices for each class and 3 classes, yielding $5^3$ possible picks.
+So the total number of choices is
+\[
+3 \cdot \binom{5}{3} + 5^3 = 155.
+\]
+\end{solution}
+\end{problem}
+
+\endinput

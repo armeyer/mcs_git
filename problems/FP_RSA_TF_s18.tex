@@ -1,0 +1,130 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{FP_RSA_TF_s18}
+  \pcomment{modified from FP_RSA_TF}
+  \pcomment{CH, spring '14; edits ARM 4/1/14 9:30PM}
+\end{pcomments}
+
+\pkeywords{
+  RSA
+  public_key
+  private_key
+  Euler
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+
+Indicate whether the following statements are \textbf{true} or
+\textbf{false}\inhandout{ by circling \true\ or \false}.  Provide a
+brief argument justifying your choice for each statement.
+
+\bparts
+
+\ppart Let $n$ and $a$ be positive integers.  If $n$ and $a$ are
+relatively prime, then
+
+\hspace{0.4in} $a^{(\phi(n)^2)} \equiv 1 \pmod{n}$. \inhandout{\hfill \textbf{T}
+  \qquad \textbf{F}}
+
+\begin{solution}
+
+\True.  Euler's Theorem states that if $n$ and $a$ are
+relatively prime, then $a^{\phi(n)} \equiv 1 \pmod{n}$.  Raising both
+sides to the $\phi(n){\text{th}}$ power, we get that
+\[
+a^{(\phi(n))^2} \equiv \paren{a^{\phi(n)}}^{\phi(n)} \equiv 1^{\phi(n)} \equiv 1 \pmod{n}.
+\]
+\end{solution}
+
+\examspace[1.0in]
+
+\ppart If $n$ and $m$ are positive integers with $\phi(n) = \phi(m)$,
+then $n=m$. \inhandout{\hfill \textbf{T} \qquad \textbf{F}}
+
+\begin{solution}
+ \False.  For example, $\phi(3) = 2 = \phi(4)$.
+
+%$\phi(10) = \phi(5) = 4$.
+\end{solution}
+
+
+% \ppart If $n$ is a product of two distinct primes, then $\phi(n)$ is
+% even.  \inhandout{\hfill \textbf{T} \qquad \textbf{F}}
+
+% \begin{solution}
+% \textbf{True}.  Let $n = pq$ for primes $p,q$.  Then, $\phi(n) =
+% \phi(p)\phi(q) = (p-1)(q-1)$.  Since 2 is the only even prime, at
+% least one of $p$ and $q$ must be odd, so at least one of $p-1$ and
+% $q-1$ must be even.  Therefore, $(p-1)(q-1)$ must be even.
+% \end{solution}
+
+\examspace[1.0in]
+
+\ppart For positive integers $a$, $b$, and $n$, we have
+
+\hspace{0.4in} $n\equiv 5\pmod{ab}$ \quad if and only if \quad $n\equiv
+5\pmod a$ and $n\equiv 5\pmod b$. \inhandout{\hfill \textbf{T} \qquad
+  \textbf{F}}
+
+\begin{solution}
+  \False.  For example, if $a=b=2$, then the number $n=3$ is congruent
+  to $5$ modulo $a$ and modulo $b$ because all odd numbers are
+  congruent to each other modulo 2.  But $ab =4$, and $n = 3 \not\equiv 1
+  \equiv 5 \pmod 4$.
+
+  When $a$ and $b$ are \emph{relatively prime}, the claim is true by
+  the Chinese Remainder Theorem.  More generally, the claim is true if
+  we replace $ab$ with $\lcm(a,b)$.
+\end{solution}
+
+
+
+% \ppart Suppose $a, b, c, d$ are any four positive integers and $ac
+% \equiv bc \pmod{d}$.  Then
+
+% \hspace{0.4in} $a \equiv b \pmod{d}$.  \inhandout{\hfill \textbf{T} \qquad \textbf{F}}
+
+% \begin{solution}
+%   \textbf{False}.  To cancel $c$, we require that $c$ is relatively
+%   prime to $d$.  A counter-example is $a=1, b=2, d=3$, and $c=6$.
+% \end{solution}
+
+\examspace[1.0in]
+
+% \ppart In the RSA Cryptosystem, if $n=pq$ then the private key $d$ and the public key
+% $(e,n)$ are chosen to satisfy:
+% $d \cdot e \equiv 1 \pmod{pq}$. \inhandout{\hfill \textbf{T} \qquad \textbf{F}}
+% \begin{solution}
+%   \textbf{False}. The values of $d$ and $e$ are chosen to satisfy:
+% \[
+% d \cdot e \equiv 1 \pmod{(p-1)(q-1)} .
+% \]
+% \end{solution}
+% \examspace[0.6in]
+
+\ppart An efficient algorithm for \textsc{Factoring} would render RSA insecure. 
+\inhandout{\hfill \textbf{T} \qquad \textbf{F}}
+
+\begin{solution}
+ \textbf{True}.  An eavesdropper could find the private key from the
+ factorization of $n$ in the public key in the same way that the RSA
+ Receiver does.  Namely, an eavesdropper could use the efficient
+ factoring algorithm as follows: from the public key $(n, d)$,
+ calculate the prime factors $p$ and $q$ of $n$, and compute the
+ inverse of $d$ modulo $(p-1)(q-1)$ to get the private key $e$, after
+ which the eavesdropper can decrypt any message transmitted by a
+ sender.
+\end{solution}
+
+\examspace[1.0in]
+
+\eparts
+
+\end{problem}
+
+\endinput

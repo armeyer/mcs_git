@@ -1,0 +1,190 @@
+\documentclass[problem]{mcs}
+
+\begin{pcomments}
+  \pcomment{FP_relation_properties_expressions_final_f13}
+  \pcomment{variant of TP_relation_properties_expressions for final
+    s18} \pcomment{original by 10/12/13 ARM}
+\end{pcomments}
+
+\pkeywords{ irreflexive transitive reflexive antisymmetric asymmetric
+  identity_relation }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem starts here
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+
+\bparts \ppart\label{ident-pred-formulas}
+
+Let $R$ be a binary relation on a set $D$.  Each of the following
+formulas expresses the fact that $R$ has a familiar relational
+property such as reflexivity, asymmetry, transitivity, etc.  For each
+of the five predicate formulas below, identify the \textbf{name} of
+that property.
+
+% \begin{enumerate}[(1)] \item \label{irreflexform} $\forall d.\,
+% \quad \QNOT(d\mrel{R}d)$ \item \label{symmiffform} $\forall c,d.\,
+% \quad c\mrel{R}d\ \QIFF\ d\mrel{R}c$ \item \label{asymmform}
+% $\forall c, d.\, \quad
+% c\mrel{R}d\ \QIMPLIES\ \QNOT(d\mrel{R}c)$ \item \label{transexform}
+% $\forall b,d.\, \quad [\exists c.\ (b\mrel{R}c
+% \ \QAND\ c\mrel{R}d)]\ \QIMPLIES\ b\mrel{R}d$ \item \label{antisymmform}
+% $\forall c \neq d.\, \quad c\mrel{R}d \QIMPLIES
+% \QNOT(d\mrel{R}c)$ \end{enumerate}
+
+
+
+
+
+\begin{enumerate}[(1)]
+  \setlength\itemsep{1em}
+  
+\item \label{symmiffform} $\forall c,d.\, \quad
+  c\mrel{R}d\ \QIFF\ d\mrel{R}c$ \hfill \examrule[1in]
+  \begin{solution}
+    symmetric
+  \end{solution}
+
+\item \label{irreflexform} $\forall d.\, \quad \QNOT(d\mrel{R}d)$
+  \hfill \examrule[1in]
+  \begin{solution}
+    irreflexive
+  \end{solution}
+  
+\item \label{asymmform} $\forall c, d.\, \quad
+  c\mrel{R}d\ \QIMPLIES\ \QNOT(d\mrel{R}c)$ \hfill \examrule[1in]
+  \begin{solution}
+    asymmetric
+  \end{solution}
+  
+\item \label{transexform} $\forall b,d.\, \quad [\exists
+  c.\ (b\mrel{R}c \ \QAND\ c\mrel{R}d)]\ \QIMPLIES\ b\mrel{R}d$ \hfill
+  \examrule[1in]
+  \begin{solution}
+    transitive
+  \end{solution}
+  
+\item \label{antisymmform} $\forall c \neq d.\, \quad c\mrel{R}d
+  \QIMPLIES \QNOT(d\mrel{R}c)$ \hfill \examrule[1in]
+  \begin{solution}
+    antisymmetric
+  \end{solution}
+  
+\end{enumerate}
+
+
+% \begin{align} %\item\label{reflexform} \forall d.\quad
+% d\mrel{R}d \label{irreflexform} \forall d. &\quad
+% \QNOT(d\mrel{R}d)\\ \label{symmiffform} \forall c,d. &\quad
+% c\mrel{R}d\ \QIFF\ d\mrel{R}c\\ %\label{symmimpform} \forall
+% c,d. &\quad c\mrel{R}d \QIMPLIES d\mrel{R}c \label{asymmform}
+% \forall c, d. &\quad
+% c\mrel{R}d\ \QIMPLIES\ \QNOT(d\mrel{R}c)\\ %\label{antisymmform}
+% \forall c \neq d. &\quad c\mrel{R}d \QIMPLIES \QNOT(d\mrel{R}c)
+% %\label{tournamentform} \forall c \neq d. &\quad c\mrel{R}d \QIFF
+% \QNOT(d\mrel{R}c) %\label{transform} \forall b,c,d. &\quad
+% (b\mrel{R}c
+% \ \QAND\ c\mrel{R}d)\ \QIMPLIES\ b\mrel{R}d\\ \label{transexform}
+% \forall b,d. &\quad [\exists c.\ (b\mrel{R}c
+% \ \QAND\ c\mrel{R}d)]\ \QIMPLIES\ b\mrel{R}d\\ \label{denseform}
+% \forall b,d. &\quad b\mrel{R}d\ \QIMPLIES\ [\exists c.\ (b\mrel{R}c
+% \ \QAND\ c\mrel{R}d)] \end{align}
+
+
+\ppart Below are five relational formulas encoding the \textbf{same}
+five familiar properties as in part~\eqref{ident-pred-formulas}, in
+scrambled order.  Match these five relational formulas to the
+predicate formulas from part~\eqref{ident-pred-formulas} by writing
+the \textbf{number} that each corresponds to.  Your answers should
+simply be the numbers 1--5 in some order.
+
+In these formulas, $\ident{D}$ is the ``identity function'' on $D$,
+defined by $\ident{D}(d) \eqdef d\ \text{for}\ d \in D$.
+
+% Next to each of these relational formulas, write the \textbf{letter} that it corresponds to from part~\eqref{ident-pred-formulas}. Your answers should simply be the letters \eqref{} through \eqref{} in some order.
+
+
+% Predicate
+% formulas are numbered (1), (2), \dots, and relational formulas
+% (equalities and containments) are labelled with letters (a),(b),\dots.
+
+% Next to each of the relational formulas, write the number of the
+% predicate formula equivalent to it.  It is not necessary to name the
+% property expressed, but you can get partial credit if you do.  For
+% example, part~\eqref{irrpart} gets the label ``(1).''  It expresses
+% \emph{irreflexivity}.
+
+\begin{enumerate}[(1)]
+  \setlength\itemsep{1em}
+  \setcounter{enumi}{5}
+
+\item $R \intersect \ident{D} = \emptyset$
+  \hfill \examrule[0.5in]
+\begin{solution}
+\eqref{irreflexform}: irreflexive
+\end{solution}
+
+\item $R \subseteq \inv{R}$
+  \hfill \examrule[0.5in]
+\begin{solution}
+\eqref{symmiffform}: symmetric
+\end{solution}
+
+\item $R \compose R \subseteq R$
+  \hfill \examrule[0.5in]
+\begin{solution}
+\eqref{transexform}: transitive
+\end{solution}
+
+\item $R \intersect \inv{R} \subseteq \ident{D}$
+  \hfill \examrule[0.5in]
+\begin{solution}
+\eqref{antisymmform}: antisymmetric
+\end{solution}
+
+\item $R \intersect \inv{R} = \emptyset$
+  \hfill \examrule[0.5in]
+\begin{solution}
+\eqref{asymmform}: asymmetric
+\end{solution}
+
+\end{enumerate}
+
+
+%% \ppart $R = \inv{R}$ \hfill \examrule[0.5in]
+%% \begin{solution}
+%% \eqref{symmimpform}, \eqref{symmiffform}: \textbf{symmetric}
+%% \end{solution}
+
+%% \ppart $\ident{D} \subseteq R$ \hfill \examrule[0.5in]
+%% \begin{solution}
+%% \eqref{reflexform}: \textbf{reflexive}
+%%\end{solution}
+
+
+% \ppart $R \subseteq R \compose R$ \hfill \examrule[0.5in]
+% \begin{solution}
+% \eqref{denseform}: \textbf{dense}
+% \end{solution}
+
+
+%% \ppart $\bar{R} \subseteq \inv{R} $ \hfill \examrule[0.5in]
+%% \begin{solution}
+%% \eqref{asymmform}: \textbf{asymmetric}
+%% \end{solution}
+
+%% \ppart $\bar{R} \intersect \ident{R} = \inv{R} \intersect \ident{R}$ \hfill \examrule[0.5in]
+%% \begin{solution}
+%% \eqref{tournamentform}: \textbf{tournament graph}
+%% \end{solution}
+
+
+\eparts
+\end{problem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem ends here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\endinput
+
